@@ -1,8 +1,8 @@
 ---
 layout: page
-permalink: /repositories/
-title: Github
-description: A summary of my Github Account
+permalink: /git/
+title: Git Stats
+description: Here's a summary of my Github Account
 nav: true
 nav_order: 4
 ---
