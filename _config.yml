@@ -70,23 +70,7 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # Social integration
 # -----------------------------------------------------------------------------
 
-github_username: gsuarezr # your GitHub user name
-gitlab_username: # your GitLab user name
-x_username: mcditoos # your X handle
-mastodon_username: # your mastodon instance+username in the format instance.tld/@username
-linkedin_username: # your LinkedIn user name
-telegram_username: Gqthermo # your Telegram user name
-scholar_userid: yi6jJAQAAAAJ&hl # your Google Scholar ID
-semanticscholar_id: # your Semantic Scholar ID
-whatsapp_number: 48506763438 # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
-orcid_id: 0000-0003-1920-8525 # your ORCID ID
-acm_id: # your dl.acm.org/profile/id
-blogger_url: # your blogger URL
-bluesky_url: # your bluesky URL
-dblp_url: # your DBLP profile url
-discord_id: # your discord id (18-digit unique numerical identifier)
-facebook_id: # your facebook id
-flickr_id: # your flickr id
+
 github_username: gsuarezr # your GitHub user name
 gitlab_username: # your GitLab user name
 ieee_id: # your ieeexplore.ieee.org/author/id
