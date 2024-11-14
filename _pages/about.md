@@ -19,7 +19,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I'm a Venezuelan physicist, AI & Finance enthusiast, with passion for problem 
+I'm a Venezuelan physicist, with passion for problem 
 solving and software development. I'm currently pursuing a PhD at ICTQT, 
 in the university of Gdansk. 
 
