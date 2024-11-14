@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://mcditoos.github.io/sitemap.xml
+Sitemap: https://gsuarezr.github.io/sitemap.xml
