@@ -3,7 +3,7 @@ layout: page
 title: Projects
 permalink: /projects/
 description: Projects I've made for hackathons, interships, courses ... etc.
-nav: true
+nav: false
 nav_order: 3
 display_categories: [Finance & Data, Hackathons]
 horizontal: false
