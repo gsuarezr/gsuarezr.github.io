@@ -1,0 +1,129 @@
+---
+import { getConfig } from '../../utils/config';
+import NavLink from './NavLink.astro';
+import NavDropdown from './NavDropdown.astro';
+
+const config = await getConfig();
+const { items, more_dropdown } = config.navigation;
+
+// Filter items into main and dropdown based on position
+const mainItems = Object.entries(items)
+  .filter(([_, item]) => item.enabled && item.position === 'main')
+  .map(([key, item]) => ({
+    href: key === 'home' ? '/' : `/${key}`,
+    label: item.label
+  }));
+
+const dropdownItems = Object.entries(items)
+  .filter(([_, item]) => item.enabled && item.position === 'more')
+  .map(([key, item]) => ({
+    href: `/${key}`,
+    label: item.label
+  }));
+
+const isActive = (href: string) => Astro.url.pathname === href;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <a href="/" class="flex items-center">
+          <span class="text-3xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 text-transparent bg-clip-text">
+            {config.personal.name}
+          </span>
+        </a>
+      </div>
+
+      <div class="hidden md:flex md:items-center md:space-x-1">
+        {mainItems.map(link => (
+          <NavLink
+            href={link.href}
+            label={link.label}
+            isActive={isActive(link.href)}
+          />
+        ))}
+
+        {more_dropdown.enabled && dropdownItems.length > 0 && (
+          <NavDropdown
+            label={more_dropdown.label}
+            items={dropdownItems}
+            isActive={isActive}
+          />
+        )}
+
+        <div class="ml-4 flex items-center">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input
+              id="theme-toggle"
+              type="checkbox"
+              class="sr-only peer"
+            />
+            <div class="w-10 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:bg-blue-500 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600"></div>
+            <span id="theme-icon" class="ml-3 text-xl">🌙</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex items-center md:hidden">
+        <div class="mr-4">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input
+              id="theme-toggle"
+              type="checkbox"
+              class="sr-only peer"
+            />
+            <div class="w-10 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:bg-blue-500 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600"></div>
+            <span id="theme-icon" class="ml-3 text-xl">🌙</span>
+          </label>
+        </div>
+
+        <button
+          type="button"
+          id="mobile-menu-button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hidden md:hidden" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      {[...mainItems, ...dropdownItems].map(link => (
+        <a
+          href={link.href}
+          class:list={[
+            'block px-3 py-2 rounded-md text-base font-medium',
+            isActive(link.href)
+              ? 'bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle logic
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  // Theme Toggle Initialization Script (NOW MOVED HERE)
+  import ThemeToggle from '../LightDark.js';
+  const themeToggler = ThemeToggle();
+  themeToggler.init();
+</script>

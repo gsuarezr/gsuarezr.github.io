@@ -1,0 +1,4 @@
+- [ ] Put a footer or something like that in the layout
+- [ ] Delete useless stuff
+- [ ] Create teaching page
+- [ ] Populate Gallery

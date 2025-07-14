@@ -1,0 +1,57 @@
+---
+// No need for Astro import if only using standard JSX/Props
+interface Props {
+  authorsString: string | undefined;
+}
+
+const { authorsString } = Astro.props;
+
+// REMOVED the HighlightedAuthor helper function
+
+const formatAuthors = (inputString: string | undefined) => {
+  if (!inputString) {
+    return "Unknown Author";
+  }
+
+  const authors = inputString.split(' and ');
+  const targetAuthorName = 'Suárez, Gerardo';
+  const gerardoIndex = authors.findIndex(author => author.includes(targetAuthorName));
+  const totalAuthors = authors.length;
+
+  // --- Case 1: 5 or fewer authors ---
+  if (totalAuthors <= 5) {
+    // For the frontmatter script, we'll return strings with HTML
+    if (gerardoIndex === -1) {
+      return authors.join(' and ');
+    }
+
+    // Build the string with HTML tags
+    return authors.map((author, index) => 
+      index === gerardoIndex ? `<strong>${author}</strong>` : author
+    ).join(' and ');
+  }
+
+  // --- Case 2: More than 5 authors ---
+  const firstAuthor = authors[0];
+  const lastAuthor = authors[totalAuthors - 1];
+
+  // If Suárez is not found, just show first and last
+  if (gerardoIndex === -1) {
+    return `${firstAuthor} ... ${lastAuthor}`;
+  }
+
+  // Handle each case with string templates instead of JSX
+  if (gerardoIndex === 0) {
+    return `<strong>${firstAuthor}</strong> ... ${lastAuthor}`;
+  }
+
+  if (gerardoIndex === totalAuthors - 1) {
+    return `${firstAuthor} ... <strong>${lastAuthor}</strong>`;
+  }
+
+  // If Suárez is in the middle
+  return `${firstAuthor} ... <strong>${authors[gerardoIndex]}</strong> ... ${lastAuthor}`;
+};
+---
+
+<Fragment set:html={formatAuthors(authorsString)} />

@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const mermaidDiagram = `
+graph TD
+    %% First Year
+    subgraph "First Year"
+    MATH111["MATH111<br/>Calculus I"]
+    PHYS111["PHYS111<br/>Physics I"]
+    end
+
+    %% Second Year
+    subgraph "Second Year"
+    MATH211["MATH211<br/>Linear Algebra"]
+    PHYS211["PHYS211<br/>Classical Mechanics"]
+    MATH212["MATH212<br/>Calculus II"]
+    PHYS212["PHYS212<br/>Electromagnetism"]
+    end
+
+    %% Third Year
+    subgraph "Third Year"
+    MATH311["MATH311<br/>Differential Equations"]
+    PHYS311["PHYS311<br/>Quantum Mechanics"]
+    PHYS312["PHYS312<br/>Statistical Physics"]
+    PHYS313["PHYS313<br/>Mathematical Physics"]
+    end
+
+    %% Fourth Year
+    subgraph "Fourth Year"
+    PHYS411["PHYS411<br/>Advanced QM"]
+    PHYS412["PHYS412<br/>Particle Physics"]
+    PHYS413["PHYS413<br/>Research Project"]
+    end
+
+    %% Dependencies
+    MATH111 --> MATH211
+    MATH111 --> MATH212
+    MATH211 --> MATH311
+    MATH212 --> MATH311
+    
+    PHYS111 --> PHYS211
+    PHYS111 --> PHYS212
+    MATH111 --> PHYS211
+    MATH111 --> PHYS212
+    
+    PHYS211 --> PHYS311
+    PHYS212 --> PHYS311
+    MATH311 --> PHYS311
+    
+    PHYS211 --> PHYS312
+    MATH311 --> PHYS312
+    
+    MATH311 --> PHYS313
+    PHYS211 --> PHYS313
+    PHYS212 --> PHYS313
+    
+    PHYS311 --> PHYS411
+    PHYS313 --> PHYS411
+    
+    PHYS311 --> PHYS412
+    PHYS313 --> PHYS412
+    
+    PHYS311 --> PHYS413
+    PHYS312 --> PHYS413
+    PHYS313 --> PHYS413
+
+    %% Styling
+    classDef math fill:#f9f,stroke:#333,stroke-width:2px
+    classDef physics fill:#bbf,stroke:#333,stroke-width:2px
+    
+    class MATH111,MATH211,MATH212,MATH311 math
+    class PHYS111,PHYS211,PHYS212,PHYS311,PHYS312,PHYS313,PHYS411,PHYS412,PHYS413 physics
+`;
+---
+
+<Layout title="Physics Curriculum">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Physics Curriculum Map</h1>
+    
+    <div class="mb-8 prose dark:prose-invert">
+      <p>
+        This curriculum map shows the recommended course sequence and prerequisites for the physics program.
+        Mathematics courses are shown in pink, and physics courses in blue.
+        Arrows indicate prerequisite relationships between courses.
+      </p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+      <div class="mermaid">
+        {mermaidDiagram}
+      </div>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+        <h2 class="text-2xl font-bold mb-4">Mathematics Courses</h2>
+        <ul class="space-y-4">
+          <li>
+            <h3 class="font-semibold">MATH111: Calculus I</h3>
+            <p class="text-gray-600 dark:text-gray-400">Limits, derivatives, and basic integration</p>
+          </li>
+          <li>
+            <h3 class="font-semibold">MATH211: Linear Algebra</h3>
+            <p class="text-gray-600 dark:text-gray-400">Vector spaces and matrices</p>
+            <p class="text-sm text-gray-500">Prerequisites: MATH111</p>
+          </li>
+          <li>
+            <h3 class="font-semibold">MATH212: Calculus II</h3>
+            <p class="text-gray-600 dark:text-gray-400">Advanced integration and series</p>
+            <p class="text-sm text-gray-500">Prerequisites: MATH111</p>
+          </li>
+          <li>
+            <h3 class="font-semibold">MATH311: Differential Equations</h3>
+            <p class="text-gray-600 dark:text-gray-400">ODEs and PDEs</p>
+            <p class="text-sm text-gray-500">Prerequisites: MATH211, MATH212</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+        <h2 class="text-2xl font-bold mb-4">Physics Courses</h2>
+        <ul class="space-y-4">
+          <li>
+            <h3 class="font-semibold">PHYS111: Physics I</h3>
+            <p class="text-gray-600 dark:text-gray-400">Mechanics and waves</p>
+          </li>
+          <li>
+            <h3 class="font-semibold">PHYS211: Classical Mechanics</h3>
+            <p class="text-gray-600 dark:text-gray-400">Advanced mechanics</p>
+            <p class="text-sm text-gray-500">Prerequisites: PHYS111, MATH111</p>
+          </li>
+          <li>
+            <h3 class="font-semibold">PHYS212: Electromagnetism</h3>
+            <p class="text-gray-600 dark:text-gray-400">Electric and magnetic fields</p>
+            <p class="text-sm text-gray-500">Prerequisites: PHYS111, MATH111</p>
+          </li>
+          <li>
+            <h3 class="font-semibold">PHYS311: Quantum Mechanics</h3>
+            <p class="text-gray-600 dark:text-gray-400">Introduction to quantum theory</p>
+            <p class="text-sm text-gray-500">Prerequisites: PHYS211, PHYS212, MATH311</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import mermaid from 'mermaid';
+  
+  // Initialize mermaid with configuration
+  mermaid.initialize({ 
+    startOnLoad: true,
+    theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
+    flowchart: {
+      curve: 'basis',
+      nodeSpacing: 50,
+      rankSpacing: 50,
+      useMaxWidth: true
+    },
+    securityLevel: 'loose'
+  });
+</script>
+
+<style>
+  .mermaid {
+    overflow-x: auto;
+    min-height: 600px;
+  }
+</style>

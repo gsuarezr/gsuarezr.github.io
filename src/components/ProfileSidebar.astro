@@ -1,0 +1,42 @@
+---
+import { getConfig } from '../utils/config';
+import SocialIcons from './SocialIcons.astro';
+import Card from './common/Card.astro';
+
+const config = await getConfig();
+---
+
+<aside class="w-80 flex-shrink-0">
+  <Card className="sticky top-24">
+    <div class="relative">
+      {config.personal.background_image && (
+        <div class="absolute inset-0 rounded-t-lg -mt-6 -mx-6 h-32 bg-cover bg-center" style={`background-image: url(${config.personal.background_image})`}>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent rounded-t-lg"></div>
+        </div>
+      )}
+      
+      <div class="relative text-center">
+        <img
+          src={config.personal.avatar || "/default-avatar.jpg"}
+          alt={config.personal.name}
+          class="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-white dark:ring-gray-700 shadow-lg"
+          style={config.personal.background_image ? "margin-top: 2rem;" : ""}
+        />
+        <h2 class="text-2xl font-bold mb-1 bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 text-transparent bg-clip-text">
+          {config.personal.name}
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">
+          {config.personal.title}
+        </p>
+      </div>
+
+      {config.personal.bio && (
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 text-justify">
+          {config.personal.bio}
+        </p>
+      )}
+
+      <SocialIcons social={config.social} />
+    </div>
+  </Card>
+</aside>

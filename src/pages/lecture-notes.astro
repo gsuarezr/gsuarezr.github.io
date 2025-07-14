@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LectureNotesList from '../components/LectureNotesList.astro';
+import { getLectureNotes } from '../utils/lectureNotes';
+
+const notes = await getLectureNotes();
+---
+
+<Layout title="Lecture Notes">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Lecture Notes</h1>
+    
+    {notes.length > 0 ? (
+      <LectureNotesList notes={notes} />
+    ) : (
+      <div class="bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 p-4">
+        <p class="text-yellow-700 dark:text-yellow-200">
+          No lecture notes found. Add PDF files to the public/lecture-notes directory or Markdown files to the src/content/notes directory.
+        </p>
+      </div>
+    )}
+  </div>
+</Layout>

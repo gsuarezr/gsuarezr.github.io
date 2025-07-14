@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CredlyBadges from '../components/CredlyBadges.astro';
+import Coursera from '../components/Coursera.astro';
+import type { Course } from '../types/courses';
+import CourseCard from '../components/CourseCard.astro';
+import { sampleCourses } from '../data/takencourses';
+
+interface Props {
+  courses?: Course[];
+}
+
+const { courses = sampleCourses } = Astro.props;
+---
+
+<Layout title="Virtual Badges">
+  <h1 class="text-2xl font-bold mb-6">Credly Badges</h1>
+  <CredlyBadges username="gerardo-suarez" columns={3} />
+  <h2 class="text-2xl font-bold mb-6">My Coursera Achievements</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {courses.map((course) => (
+    <CourseCard course={course} />
+  ))}
+</div>
+</Layout>
+
+

@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SelectedPublications from '../components/SelectedPublications.astro';
+import AboutContent from '../content/about.md';
+import { getConfig } from '../utils/config';
+const config = await getConfig();
+---
+<Layout title={config.site.title}>
+  <div class="prose lg:prose-xl">
+    <!-- Container for text and image -->
+    <div class="flex items-start mb-6">
+      <!-- Main content area (text) -->
+      <div class="flex-1">        
+        <section class="mb-6">
+          <p class="text-lg  text-base leading-relaxed text-gray-700 dark:text-gray-300 text-justify">
+
+          <AboutContent />
+          </p>
+        </section>
+      </div>
+
+      <!-- Image area -->
+      <div class="w-1/4 ml-6">
+        <figure class="m-0">
+          <img
+            src="/gundam.png"
+            alt="Research Image"
+            class="w-full h-auto rounded-lg shadow-lg"
+          />
+          <figcaption class="text-base text-gray-600 dark:text-gray-400 mt-2 text-center">
+            <b>Caption:</b> Me visiting the Giant Gundam in Yokohama in November, 2023
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+
+</Layout>
+
+
+  <SelectedPublications /> 
+
+</Layout>

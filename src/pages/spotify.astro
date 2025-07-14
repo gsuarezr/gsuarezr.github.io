@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getConfig } from '../utils/config';
+import SpotifyWebApi from 'spotify-web-api-node';
+
+const config = await getConfig();
+const spotifyApi = new SpotifyWebApi({
+  clientId: config.secret.spotify_id,
+  clientSecret: config.secret.spotify_secret
+});
+
+interface SpotifyPlaylist {
+  tracks: {
+    items: any[]; // You may want to create a more specific type for playlist items
+  };
+  external_urls?: {
+    spotify?: string;
+  };
+  // Add other properties from the playlist object as needed
+}
+
+let playlist: SpotifyPlaylist = { tracks: { items: [] } };
+
+try {
+  const data = await spotifyApi.clientCredentialsGrant();
+  spotifyApi.setAccessToken(data.body['access_token']);
+
+  if (config.secret.playlist_id) {
+    playlist = (await spotifyApi.getPlaylist(config.secret.playlist_id)).body;
+  }
+} catch (error) {
+  console.error('Error fetching Spotify playlist:', error);
+}
+---
+
+<Layout title="Top 25 Songs">
+  <div class="max-w-4xl mx-auto p-4">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-4xl font-bold">My Top 25 Songs</h1>
+      {playlist.external_urls && playlist.external_urls.spotify && (
+        <a
+          href={playlist.external_urls.spotify}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-green-600 hover:text-green-700 dark:text-green-500 dark:hover:text-green-400"
+          aria-label="Open playlist on Spotify"
+        >
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+          </svg>
+        </a>
+      )}
+    </div>
+
+    {playlist.tracks.items.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+        {playlist.tracks.items.map((item: any, index: number) => (
+          <div class="flex items-start p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <span class="text-lg font-medium text-gray-500 dark:text-gray-400 min-w-[2rem] text-center mr-4 mt-1">
+              {index + 1}
+            </span>
+            {item.track.album.images[2] && (
+              <img
+                src={item.track.album.images[2].url}
+                alt={item.track.album.name}
+                class="w-16 h-16 rounded-lg flex-shrink-0 mt-0"
+              />
+            )}
+            <div class="flex-grow ml-4">
+              <h3 class="font-semibold text-lg dark:text-gray-100">
+                {item.track.name}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {item.track.artists.map((artist: any) => artist.name).join(', ')}
+              </p>
+            </div>
+            <div class="ml-auto flex-shrink-0 mt-1">
+              <a
+                href={item.track.external_urls.spotify}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-green-600 hover:text-green-700 dark:text-green-500 dark:hover:text-green-400"
+              >
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 p-4">
+        <p class="text-yellow-700 dark:text-yellow-200">
+          No tracks found. Please check your Spotify configuration.
+        </p>
+      </div>
+    )}
+  </div>
+</Layout>

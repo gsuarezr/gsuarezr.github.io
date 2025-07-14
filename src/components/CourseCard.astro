@@ -1,0 +1,80 @@
+---
+// src/components/CourseCard.astro
+import type { Course } from '../types/course';
+import CourseraBadge from './CourseraBadge.astro';
+
+interface Props {
+  course: Course;
+}
+
+const { course } = Astro.props;
+---
+
+<div class={`aspect-square border rounded-lg shadow-sm  ${
+  course.isSpecialization 
+    ? 'border-amber-200 shadow-lg bg-gradient-to-b from-amber-50 to-amber-100/50' 
+    : 'border-gray-200 shadow-md bg-gradient-to-b from-gray-50 to-gray-100/50'
+}`}>
+  <div class="p-6">
+    <div class="flex items-center justify-between mb-3">
+      <CourseraBadge />
+      {course.isSpecialization && (
+        <span class="inline-flex items-center rounded-md bg-amber-600 px-2 py-1 text-sm font-semibold text-white">
+          {course.coursesCount} Courses
+        </span>
+      )}
+    </div>
+    
+    <h3 class={`text-xl font-bold mb-2 ${
+      course.isSpecialization 
+        ? 'text-amber-900' 
+        : 'text-gray-800'
+    }`}>
+      {course.title}
+    </h3>
+    <p class="text-sm font-semibold text-gray-800 mb-2">{course.institution}</p>
+    
+ <!--   <p class="text-sm text-gray-700 mb-4">
+      {course.description}
+    </p> -->
+    
+    <div class="flex flex-wrap gap-2 mb-4">
+      {course.tags.map((tag) => (
+        <span class={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-semibold ${
+          course.isSpecialization 
+            ? 'bg-amber-100 text-amber-900 ring-1 ring-amber-400/20'
+            : 'bg-gray-200 text-gray-800 ring-1 ring-gray-400/20'
+        }`}>
+          {tag}
+        </span>
+      ))}
+    </div>
+     <div class={`border-t pt-4 mt-4 ${
+      course.isSpecialization 
+        ? 'border-amber-200/70' 
+        : 'border-gray-200'
+    }`}>
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+          <span>{course.level}</span>
+          <span class="text-gray-400">•</span>
+          <span>{course.duration}</span>
+        </div>
+        <div>
+          <a 
+            href={course.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`text-sm font-bold ${
+              course.isSpecialization 
+                ? 'text-amber-500 hover:text-amber-800' 
+                : 'text-gray-700 hover:text-gray-800'
+            }`}
+          >
+            View {course.isSpecialization ? 'Specialization' : 'Course'} →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

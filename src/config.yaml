@@ -1,0 +1,83 @@
+# Site Configuration
+site:
+  title: Gerardo Suarez
+  description: An engineer turned physicist!
+  logo: /page_logo.jpg
+# Navigation Configuration
+navigation:
+  # Main Navigation Items (specify position: "main" or "more")
+  items:
+    home:
+      enabled: true
+      label: Home
+      position: main
+    publications:
+      enabled: true
+      label: Publications
+      position: main
+    cv:
+      enabled: false
+      label: CV
+      position: main
+    blog:
+      enabled: false
+      label: Blog
+      position: main
+    gallery:
+      enabled: false
+      label: Gallery
+      position: more
+    stats:
+      enabled: true
+      label: GitHub Stats
+      position: more
+    lecture_notes:
+      enabled: false
+      label: Lecture Notes
+      position: more
+    spotify:
+      enabled: true
+      label: Favorite songs
+      position: more
+    books:
+      enabled: false
+      label: Favorite Books
+      position: more
+    curriculum:
+      enabled: false
+      label: Curriculum
+      position: more
+    recommended:
+      enabled: false
+      label: Recommended
+      position: more
+    certifications:
+      enabled: true
+      label: Certifications
+      position: more
+
+  # More Dropdown Settings
+  more_dropdown:
+    enabled: true
+    label: More
+
+# Personal Information
+personal:
+  name: ⟨Gerardo|Suarez⟩
+  title: PhD/Msc Student 
+  bio: Venezuelan, Quantum Thermo, Econometrics, AI aficionado, I like anime, pizza and electronics. Finishing up a PhD in Physics and a Msc in Financial engineering. Currently job hunting
+  avatar: /profile.jpg
+  background_image: /background.png
+
+# Social Media Profiles
+social:
+  github: gsuarezr
+  twitter: mcditoos
+  orcid: 0000-0003-1920-8525
+  google_scholar: yi6jJAQAAAAJ
+  researchgate: Gerardo-Suarez-3
+  linkedin: gerardodata10
+secret:
+  spotify_id: c21d8e1da5294f64aaebe8f13aa1cef5
+  spotify_secret: e66b9c4ffc494c2e88a4818754f7807f
+  playlist_id: 09KkLdcjRcegLGUZMwe4Ns

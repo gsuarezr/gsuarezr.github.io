@@ -1,0 +1,74 @@
+---
+import { getCourseraCourses } from '../utils/coursera';
+
+interface Props {
+  learnerId: string;
+}
+
+const { learnerId } = Astro.props;
+let courses: Awaited<ReturnType<typeof getCourseraCourses>> = [];
+let error = null;
+
+try {
+  courses = await getCourseraCourses(learnerId);
+} catch (e) {
+  error = e instanceof Error ? e.message : 'Failed to load courses';
+}
+
+// Sort courses by completion date (most recent first)
+courses.sort((a, b) => new Date(b.completionDate).getTime() - new Date(a.completionDate).getTime());
+---
+
+{error && (
+  <div class="text-red-500 dark:text-red-400 p-4 rounded-lg bg-red-50 dark:bg-red-900/50 mb-4">
+    <p>Unable to load courses. Please ensure:</p>
+    <ul class="list-disc ml-4 mt-2">
+      <li>Your Coursera profile is public</li>
+      <li>Your certificates are public</li>
+      <li>The learner ID is correct: {learnerId}</li>
+    </ul>
+  </div>
+)}
+
+{courses.length === 0 && !error && (
+  <div class="text-gray-500 dark:text-gray-400 p-4 text-center">
+    No courses found. Make sure your Coursera profile and certificates are public.
+  </div>
+)}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  {courses.map((course) => (
+    <div class="block p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 
+                rounded-lg hover:shadow-lg dark:hover:shadow-gray-800/50 transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <span class="px-2 py-1 text-xs text-white rounded-full bg-blue-500">
+          Coursera
+        </span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+          {new Date(course.completionDate).toLocaleDateString()}
+        </span>
+      </div>
+
+      <h3 class="text-lg font-semibold text-center mb-2 text-gray-900 dark:text-gray-100 line-clamp-2">
+        {course.courseName}
+      </h3>
+      
+      <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-3">
+        {course.partnerName}
+      </p>
+
+      {course.certificateUrl && (
+        <div class="text-center">
+          <a
+            href={course.certificateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 dark:bg-blue-500 rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+          >
+            View Certificate
+          </a>
+        </div>
+      )}
+    </div>
+  ))}
+</div>

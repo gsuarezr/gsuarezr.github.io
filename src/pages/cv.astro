@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Curriculum Vitae">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Curriculum Vitae</h1>
+    
+    <div class="space-y-8">
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">Education</h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h3 class="font-medium">Ph.D. in [Field]</h3>
+            <p class="text-gray-600">[University], [Year]</p>
+            <p class="text-gray-700 mt-2">Thesis: "[Title]"</p>
+          </div>
+          <!-- Add more education items -->
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">Research Experience</h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h3 class="font-medium">[Position]</h3>
+            <p class="text-gray-600">[Institution], [Dates]</p>
+            <ul class="list-disc list-inside mt-2 text-gray-700">
+              <li>Achievement or responsibility 1</li>
+              <li>Achievement or responsibility 2</li>
+            </ul>
+          </div>
+          <!-- Add more research experience items -->
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">Teaching Experience</h2>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h3 class="font-medium">[Course Title]</h3>
+            <p class="text-gray-600">[Institution], [Dates]</p>
+            <p class="text-gray-700 mt-2">Brief description of teaching role and responsibilities</p>
+          </div>
+          <!-- Add more teaching experience items -->
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">Skills</h2>
+        <div class="bg-white p-4 rounded-lg shadow-sm">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <h3 class="font-medium mb-2">Technical Skills</h3>
+              <ul class="list-disc list-inside text-gray-700">
+                <li>Skill 1</li>
+                <li>Skill 2</li>
+                <li>Skill 3</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-medium mb-2">Research Skills</h3>
+              <ul class="list-disc list-inside text-gray-700">
+                <li>Skill 1</li>
+                <li>Skill 2</li>
+                <li>Skill 3</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  description: string;
+  category?: string;
+}
+
+const images: GalleryImage[] = [
+  {
+    src: "/gallery/image1.jpg",
+    alt: "Example Image 1",
+    description: "Description of image 1",
+    category: "Research"
+  },
+  {
+    src: "/gallery/image2.jpg",
+    alt: "Example Image 2",
+    description: "Description of image 2",
+    category: "Conferences"
+  },
+  // Add more images as needed
+];
+
+const categories = Array.from(new Set(images.map(img => img.category).filter(Boolean)));
+---
+
+<Layout title="Gallery">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Gallery</h1>
+
+    {categories.length > 0 && (
+      <div class="mb-8 flex gap-4 flex-wrap">
+        <button
+          class="category-filter active px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+          data-category="all"
+        >
+          All
+        </button>
+        {categories.map(category => (
+          <button
+            class="category-filter px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900"
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {images.map(image => (
+        <div 
+          class="gallery-item bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden"
+          data-category={image.category || 'uncategorized'}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <div class="p-4">
+            {image.category && (
+              <span class="inline-block px-2 py-1 text-sm bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full mb-2">
+                {image.category}
+              </span>
+            )}
+            <p class="text-gray-700 dark:text-gray-300">{image.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const filterButtons = document.querySelectorAll('.category-filter');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active state of buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter gallery items
+      const category = button.getAttribute('data-category');
+      galleryItems.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .category-filter.active {
+    @apply bg-blue-500 text-white dark:bg-blue-600;
+  }
+
+  .gallery-item {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-4px);
+  }
+</style>

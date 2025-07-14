@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GitHubCard from '../components/GitHubCard.astro';
+import { getGitHubStats } from '../utils/github';
+import { getConfig } from '../utils/config';
+
+const config = await getConfig();
+
+// Replace with your GitHub username
+const GITHUB_USERNAME = config.social.github;
+
+const githubStats = await getGitHubStats(GITHUB_USERNAME);
+---
+
+<Layout title="Stats">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Statistics</h1>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">GitHub Statistics</h2>
+      
+      <div class="space-y-6">
+        <GitHubCard stats={githubStats} />
+      </div>
+    </section>
+  </div>
+</Layout>

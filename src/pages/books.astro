@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+
+const bookData = await getEntry('books', 'top-10');
+---
+
+<Layout title="My Favorite 10 Books">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">My Favorite 10 Books</h1>
+    
+    <div class="space-y-12">
+      {bookData.data.books.map((book, index) => (
+        <div class="flex gap-8 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <div class="w-1/4 flex-shrink-0">
+            <img
+              src={book.cover}
+              alt={`Cover of ${book.title}`}
+              class="w-full h-auto rounded-lg shadow-md"
+            />
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-2xl font-bold mb-2">{index + 1}. {book.title}</h2>
+            <h3 class="text-lg text-gray-600 dark:text-gray-400 mb-4">by {book.author}</h3>
+            
+            <div class="prose dark:prose-invert mb-4">
+              <p>{book.summary}</p>
+            </div>
+            
+            <div class="mt-4">
+              <h4 class="text-lg font-semibold mb-2">Why I Love This Book:</h4>
+              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                {book.reasons.map((reason) => (
+                  <li>{reason}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

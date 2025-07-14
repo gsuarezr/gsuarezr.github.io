@@ -1,0 +1,53 @@
+---
+interface DropdownItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  label: string;
+  items: DropdownItem[];
+  isActive: (href: string) => boolean;
+}
+
+const { label, items, isActive } = Astro.props;
+---
+
+<div class="relative group">
+  <button
+    class="px-5 py-2 rounded-md text-lg font-medium font-sans text-gray-700 dark:text-gray-300 group-hover:bg-gray-50 dark:group-hover:bg-gray-800 transition-colors duration-150 ease-in-out inline-flex items-center gap-1"
+  >
+    {label}
+    <svg
+      class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </button>
+
+  <div class="absolute right-0 mt-1 w-48 origin-top-right rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+    <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-900">
+      {items.map(item => (
+        <a
+          href={item.href}
+          class:list={[
+            'block px-4 py-2 text-sm transition-colors duration-150 ease-in-out',
+            isActive(item.href)
+              ? 'bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>

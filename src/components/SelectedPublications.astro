@@ -1,0 +1,72 @@
+---
+import { getSelectedPublications } from '../utils/publications';
+import AuthorList from '../components/AuthorList.astro'; // Import the new component
+const publications = await getSelectedPublications("public/publications/");
+---
+
+<section class="mb-12">
+  <h2 class="text-2xl font-semibold mb-6">Selected Publications</h2>
+  <div class="space-y-6">
+    {publications.map(pub => (
+      <div class="flex gap-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+        {pub.preview && (
+          <div class="flex-shrink-0 w-32">
+            <img
+              src={pub.preview}
+              alt={`Preview for ${pub.title}`}
+              class="w-full h-auto rounded"
+            />
+          </div>
+        )}
+        <div class="flex-grow">
+          <h3 class="text-lg font-medium mb-2">
+            {pub.title}
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-2">
+            <AuthorList authorsString={pub.author} /> 
+          </p>
+          <p class="text-gray-500 dark:text-gray-500 text-sm">
+            {pub.journal || pub.booktitle}, {pub.year}
+          </p>
+ <div class="mt-2 flex">
+                    {pub.doi && (
+                      <div class="flex items-center mr-4">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/1/11/DOI_logo.svg"
+                          alt="DOI"
+                          class="h-10 w-10 mr-2"
+                        />
+                        <a
+                          href={`https://doi.org/${pub.doi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                          DOI: {pub.doi}
+                        </a>
+                      </div>
+                    )}
+                    {pub.arxiv && (
+                      <div class="flex items-center">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/b/bc/ArXiv_logo_2022.svg"
+                          alt="arXiv"
+                          class="h-10 w-10 mr-2"
+                        />
+                        <a
+                          href={pub.arxiv}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                        >
+                          arXiv: {pub.arxiv.substring(pub.arxiv.lastIndexOf('/') + 1)}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

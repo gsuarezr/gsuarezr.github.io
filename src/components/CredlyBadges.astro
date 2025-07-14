@@ -1,0 +1,81 @@
+---
+import { getCredlyBadges,CredlyBadge } from '../utils/credly';
+
+interface Props {
+  username: string;
+}
+
+const { username } = Astro.props;
+let badges: Awaited<ReturnType<typeof getCredlyBadges>> = [];
+let error = null;
+
+try {
+  badges = await getCredlyBadges(username);
+} catch (e) {
+  error = e instanceof Error ? e.message : 'Failed to load badges';
+}
+
+
+const accredibleBadge = {
+  id:"iop",
+  name:"Peer Review Excellence online training graduate",
+  page_url: "https://accreditations.ioppublishing.org/6a5a75af-63af-469f-9a5c-f8e2ef1adc8e#acc.JT6qPBX5", 
+  image_url: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/141182335",
+  issued_at: "2025-04-25T00:00:00Z", 
+};
+
+
+badges.push(accredibleBadge);
+
+badges.sort((a, b) => {
+  // Convert the issued_at strings to Date objects for comparison
+  const dateA = new Date(a.issued_at);
+  const dateB = new Date(b.issued_at);
+
+  // Compare the dates for descending order (newest first)
+  // A negative result means b is earlier than a (a comes first, as a is newer)
+  // A positive result means b is later than a (a comes after, as a is older)
+  // Zero means they are the same date
+  return dateB.getTime() - dateA.getTime(); // Changed for newest first!
+});
+---
+
+
+{error && (
+  <div class="text-red-500 dark:text-red-400 p-4 rounded-lg bg-red-50 dark:bg-red-900/50 mb-4">
+    {error}
+  </div>
+)}
+
+{badges.length === 0 && !error && (
+  <div class="text-gray-500 dark:text-gray-400 p-4 text-center">
+    No badges found.
+  </div>
+)}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  {badges.map((badge) => (
+    <a 
+      href={badge.page_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 
+             rounded-lg hover:shadow-lg dark:hover:shadow-gray-800/50 transition-shadow"
+    >
+      {badge.image_url && (
+        <img
+          src={badge.image_url}
+          alt={badge.name}
+          class="w-24 h-24 mx-auto mb-4 object-contain"
+          loading="lazy"
+        />
+      )}
+      <h3 class="text-lg font-semibold text-center mb-2 text-gray-900 dark:text-gray-100">
+        {badge.name}
+      </h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+        Issued: {new Date(badge.issued_at).toLocaleDateString()}
+      </p>
+    </a>
+  ))}
+</div>

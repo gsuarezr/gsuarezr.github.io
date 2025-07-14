@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { fetchTradeData, calculateMetrics } from '../utils/investmentMetrics';
+
+let metrics = {
+  sharpeRatio: 0,
+  sortinoRatio: 0,
+  spComparison: 0,
+  totalReturn: 0,
+  volatility: 0
+};
+
+try {
+  const trades = await fetchTradeData();
+  metrics = calculateMetrics(trades);
+} catch (error) {
+  console.error('Error fetching investment data:', error);
+}
+---
+
+<Layout title="Investment Metrics">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Investment Performance</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Performance Metrics -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+        <h2 class="text-xl font-semibold mb-4">Key Metrics</h2>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Sharpe Ratio</span>
+            <span class="font-medium">{metrics.sharpeRatio.toFixed(2)}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Sortino Ratio</span>
+            <span class="font-medium">{metrics.sortinoRatio.toFixed(2)}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Total Return</span>
+            <span class="font-medium">{(metrics.totalReturn * 100).toFixed(2)}%</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 dark:text-gray-400">Volatility</span>
+            <span class="font-medium">{(metrics.volatility * 100).toFixed(2)}%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- S&P 500 Comparison -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+        <h2 class="text-xl font-semibold mb-4">S&P 500 Comparison</h2>
+        <div class="flex items-center justify-center h-48">
+          <div class="text-center">
+            <p class="text-3xl font-bold mb-2">
+              {metrics.spComparison > 0 ? '+' : ''}{(metrics.spComparison * 100).toFixed(2)}%
+            </p>
+            <p class="text-gray-600 dark:text-gray-400">
+              {metrics.spComparison > 0 ? 'Outperforming' : 'Underperforming'} the S&P 500
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

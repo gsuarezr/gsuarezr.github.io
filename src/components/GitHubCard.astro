@@ -1,0 +1,71 @@
+---
+interface Props {
+  stats: {
+    name: string;
+    login: string;
+    avatar_url: string;
+    bio: string;
+    public_repos: number;
+    followers: number;
+    following: number;
+  } | null;
+}
+
+const { stats } = Astro.props;
+---
+
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+  {stats ? (
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <img
+          src={stats.avatar_url}
+          alt="GitHub Avatar"
+          class="w-16 h-16 rounded-full"
+        />
+        <div>
+          <h3 class="text-xl font-medium">{stats.name}</h3>
+          <p class="text-gray-600 dark:text-gray-400">@{stats.login}</p>
+        </div>
+      </div>
+      <p class="text-gray-700 dark:text-gray-300">{stats.bio}</p>
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+          <div class="text-xl font-bold">{stats.public_repos}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Repositories</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+          <div class="text-xl font-bold">{stats.followers}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Followers</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+          <div class="text-xl font-bold">{stats.following}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Following</div>
+        </div>
+      </div>
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+    <img
+      src={`https://github-readme-stats.vercel.app/api?username=${stats.login}&show_icons=true&theme=light`}
+      alt="GitHub Stats"
+      class="w-full h-auto"
+    />
+  </div>
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+    <img
+      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${stats.login}&layout=compact&theme=light`}
+      alt="Top Languages"
+      class="w-full h-auto"
+    />
+  </div>
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+    <img
+      src={`https://github-readme-streak-stats.herokuapp.com/?user=${stats.login}&theme=light`}
+      alt="GitHub Streak"
+      class="w-full h-auto"
+    />
+  </div>
+    </div>
+  ) : (
+    <p class="text-gray-600 dark:text-gray-400">Unable to load GitHub statistics</p>
+  )}
+</div>

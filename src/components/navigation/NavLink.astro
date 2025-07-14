@@ -1,0 +1,66 @@
+---
+interface Props {
+  href: string;  // The URL the link should point to.
+  label: string; // The text inside the link.
+  isActive: boolean; // Determines if the link is "active" (affecting styling).
+}
+
+// Extracting props from Astro.props
+const { href, label, isActive } = Astro.props;
+---
+
+<a
+  href={href} 
+  class:list={[ // Dynamically applying classes based on whether isActive is true or false.
+    /** ======= PADDING & SPACING ======= **/
+    'px-5 py-2', // Controls the padding:
+    // - `px-5`: Horizontal padding (left & right). Adjustable (e.g., `px-3`, `px-6`).
+    // - `py-2`: Vertical padding (top & bottom). Adjustable (`py-1`, `py-4`).
+
+    /** ======= BORDER & ROUNDED EDGES ======= **/
+    'rounded-md', // Applies medium-rounded corners.
+    // Change to:
+    // - `rounded-sm` → Slightly rounded.
+    // - `rounded-lg` → More rounded.
+    // - `rounded-full` → Fully rounded (pill shape).
+
+    /** ======= TEXT SIZE & FONT WEIGHT ======= **/
+    'text-xl', // Controls text size. Change to:
+    // - `text-xs` → Extra small.
+    // - `text-base` → Default normal size.
+    // - `text-lg` → Large.
+    // - `text-xl`, `text-2xl`, `text-3xl` → Even larger.
+    
+    'font-medium', 
+    // - `font-thin` → Very thin text.
+    // - `font-normal` → Regular weight.
+    // - `font-medium` → Slightly bold.
+    // - `font-semibold` → Between normal and bold.
+    // - `font-bold` → Bold text.
+    // - `font-extrabold` or `font-black` → Very bold.
+    'font-sans',
+    /** ======= COLOR TRANSITIONS & EFFECTS ======= **/
+    'transition-colors duration-150 ease-in-out',
+    // `transition-colors` → Smooth color transitions when hovering.
+    // `duration-150` → The transition lasts 150ms. Changeable (`duration-300`, `duration-500` for slower).
+    // `ease-in-out` → Smooth acceleration & deceleration.
+
+    /** ======= DYNAMIC COLOR CHANGE BASED ON isActive ======= **/
+    isActive
+      ? 'bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200' 
+      // If `isActive` is `true` (active link):
+      // - `bg-blue-50` → Very light blue background in light mode.
+      // - `text-blue-700` → Darker blue text in light mode.
+      // - `dark:bg-blue-900` → Deep blue background in dark mode.
+      // - `dark:text-blue-200` → Light blue text in dark mode.
+
+      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+      // If `isActive` is `false` (inactive link):
+      // - `text-gray-700` → Dark gray text in light mode.
+      // - `dark:text-gray-300` → Light gray text in dark mode.
+      // - `hover:bg-gray-50` → Light gray background on hover (light mode).
+      // - `dark:hover:bg-gray-800` → Darker gray background on hover (dark mode).
+  ]}
+>
+  {label} {/* Displays the text inside the link */}
+</a>

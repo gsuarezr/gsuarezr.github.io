@@ -1,0 +1,59 @@
+---
+import { getConfig } from '../utils/config';
+import NavLink from './navigation/NavLink.astro';
+import NavDropdown from './navigation/NavDropdown.astro';
+
+const config = await getConfig();
+const nav = config.navigation;
+
+// Build navigation links based on config
+const mainLinks = [
+  ...(nav.home.enabled ? [{ href: '/', label: nav.home.label }] : []),
+  ...(nav.publications.enabled ? [{ href: '/publications', label: nav.publications.label }] : []),
+  ...(nav.cv.enabled ? [{ href: '/cv', label: nav.cv.label }] : []),
+  ...(nav.blog.enabled ? [{ href: '/blog', label: nav.blog.label }] : []),
+  ...(nav.gallery.enabled ? [{ href: '/gallery', label: nav.gallery.label }] : []),
+  ...(nav.stats.enabled ? [{ href: '/stats', label: nav.stats.label }] : [])
+];
+
+const dropdownItems = nav.more_dropdown.enabled
+  ? Object.entries(nav.more_dropdown.items)
+      .filter(([_, item]) => item.enabled)
+      .map(([_, item]) => ({
+        href: item.path!,
+        label: item.label
+      }))
+  : [];
+
+const isActive = (href: string) => Astro.url.pathname === href;
+---
+
+<nav class="bg-white dark:bg-gray-800 shadow-sm mb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex">
+        <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
+          {mainLinks.map(link => (
+            <!-- FONT/SIZE: NavLink component likely contains font styling -->
+            <!-- The actual font styling for navigation links is defined in the NavLink component -->
+            <NavLink 
+              href={link.href}
+              label={link.label}
+              isActive={isActive(link.href)}
+            />
+          ))}
+          
+          {nav.more_dropdown.enabled && dropdownItems.length > 0 && (
+            <!-- FONT/SIZE: NavDropdown component likely contains font styling -->
+            <!-- The actual font styling for dropdown items is defined in the NavDropdown component -->
+            <NavDropdown
+              label={nav.more_dropdown.label}
+              items={dropdownItems}
+              isActive={isActive}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

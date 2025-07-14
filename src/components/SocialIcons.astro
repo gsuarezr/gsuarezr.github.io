@@ -1,0 +1,68 @@
+---
+interface Props {
+  social: {
+    github?: string;
+    twitter?: string;
+    orcid?: string;
+    google_scholar?: string;
+    researchgate?: string;
+  };
+}
+
+const { social } = Astro.props;
+
+const socialLinks = [
+  {
+    id: 'github',
+    url: social.github ? `https://github.com/${social.github}` : null,
+    title: 'GitHub',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg' // Public SVG for GitHub
+  },
+  {
+    id: 'twitter',
+    url: social.twitter ? `https://twitter.com/${social.twitter}` : null,
+    title: 'Twitter',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg' // Public SVG for Twitter
+  },
+  {
+    id: 'orcid',
+    url: social.orcid ? `https://orcid.org/${social.orcid}` : null,
+    title: 'ORCID',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg' // Public SVG for ORCID
+  },
+  {
+    id: 'google_scholar',
+    url: social.google_scholar ? `https://scholar.google.com/citations?user=${social.google_scholar}` : null,
+    title: 'Google Scholar',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg' // Public SVG for Google Scholar
+  },
+  {
+    id: 'researchgate',
+    url: social.researchgate ? `https://www.researchgate.net/profile/${social.researchgate}` : null,
+    title: 'ResearchGate',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg' // Public SVG for ResearchGate
+  },
+  {
+    id: 'linkedin',
+    url: social.linkedin ? `https://www.linkedin.com/in/${social.linkedin}` : null,
+    title: 'LinkedIn',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg'
+  }
+];
+
+---
+<div class="flex justify-center space-x-4">
+  {socialLinks.map(link => link.url && (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200"
+      title={link.title}
+    >
+      <img class="w-6 h-6" src={link.icon} alt={link.title} />
+    </a>
+  ))}
+</div>
+
+</div>
