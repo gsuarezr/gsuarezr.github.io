@@ -8,6 +8,6 @@ other techniques for the description of open systems such as [HEOM](https://pubs
 I started off my career as an Electronics Engineer, 
 I later did a masters in experimental quantum optics at [CINVESTAV](https://www.cinvestav.mx/zacatenco/fisica), 
 and now I’m pursuing a PhD in open quantum systems at [ICTQT](https://ictqt.ug.edu.pl/) under the 
-supervision of [Michal Horodecki](https://ictqt.ug.edu.pl/pages/new-quantum-resources-and-thermodynamics/). I was previously an Intern at [Fracon Nori's group in RIKEN](https://dml.riken.jp/) where I worked on enhancements [the Qutip environment class](https://qutip.readthedocs.io/en/latest/guide/guide-environments.html), that started me off contributing to open source which I still actively try to do.
+supervision of [Michał Horodecki](https://ictqt.ug.edu.pl/pages/new-quantum-resources-and-thermodynamics/). I was previously an Intern at [Franco Nori's group in RIKEN](https://dml.riken.jp/) where I worked on enhancements [the QuTiP environment class](https://qutip.readthedocs.io/en/latest/guide/guide-environments.html), that started me off contributing to open source which I still actively try to do.
 
 I have some experience as a Python developer/data analyst on upwork, which was my focus prior to starting my PhD. In my free time I enjoy anime, cooking, video games, and trading, while I mainly avoid actively trading, I do have some fun selling some weekly covered calls once in a while.
