@@ -1,6 +1,6 @@
 export async function getGitHubStats(username: string) {
   try {
-    const token = import.meta.env.GITHUB_TOKEN;
+    const token = import.meta.env.PAT;
 
     const response = await fetch(`https://api.github.com/users/${username}`, {
       headers: {
