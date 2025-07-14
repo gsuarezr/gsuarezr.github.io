@@ -1,0 +1,110 @@
+{
+  "$ref": "#/definitions/blog",
+  "definitions": {
+    "blog": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "jupyter": {
+          "type": "object",
+          "properties": {
+            "jupytext": {
+              "type": "object",
+              "properties": {
+                "text_representation": {
+                  "type": "object",
+                  "properties": {
+                    "extension": {
+                      "type": "string"
+                    },
+                    "format_name": {
+                      "type": "string"
+                    },
+                    "format_version": {
+                      "type": "string"
+                    },
+                    "jupytext_version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "extension",
+                    "format_name",
+                    "format_version",
+                    "jupytext_version"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "text_representation"
+              ],
+              "additionalProperties": false
+            },
+            "kernelspec": {
+              "type": "object",
+              "properties": {
+                "display_name": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "display_name",
+                "language",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "jupytext",
+            "kernelspec"
+          ],
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "date"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
