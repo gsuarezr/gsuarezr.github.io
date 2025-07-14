@@ -1,1 +1,1 @@
-vibed coded website with astro
+vibe-coded website with astro
