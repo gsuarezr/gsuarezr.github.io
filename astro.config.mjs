@@ -12,5 +12,6 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
-  }
+  },
+  site: 'https://gsuarezr.github.io',
 });
