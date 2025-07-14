@@ -14,5 +14,4 @@ export default defineConfig({
     rehypePlugins: [rehypeKatex],
   },
   site: 'https://gsuarezr.github.io',
-  base: 'https://gsuarezr.github.io'
 });
