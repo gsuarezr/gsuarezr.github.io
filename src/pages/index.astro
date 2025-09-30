@@ -6,21 +6,19 @@ import { getConfig } from '../utils/config';
 const config = await getConfig();
 ---
 <Layout title={config.site.title}>
-  <div class="prose lg:prose-xl">
-    <!-- Container for text and image -->
-    <div class="flex items-start mb-6">
-      <!-- Main content area (text) -->
-      <div class="flex-1">        
+  <div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="md:col-span-2">
         <section class="mb-6">
-          <p class="text-lg  text-base leading-relaxed text-gray-700 dark:text-gray-300 text-justify">
-
-          <AboutContent />
-          </p>
+          <div class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 text-justify">
+            <AboutContent />
+          </div>
         </section>
+
+        <SelectedPublications />
       </div>
 
-      <!-- Image area -->
-      <div class="w-1/4 ml-6">
+      <div class="md:col-span-1">
         <figure class="m-0">
           <img
             src="/gundam.png"
@@ -33,11 +31,5 @@ const config = await getConfig();
         </figure>
       </div>
     </div>
-
-
-</Layout>
-
-
-  <SelectedPublications /> 
-
+  </div>
 </Layout>

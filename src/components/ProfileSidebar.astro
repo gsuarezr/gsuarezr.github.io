@@ -6,8 +6,8 @@ import Card from './common/Card.astro';
 const config = await getConfig();
 ---
 
-<aside class="w-80 flex-shrink-0">
-  <Card className="sticky top-24">
+<aside id="profile-aside" class="w-full">
+  <Card className="profile-card">
     <div class="relative">
       {config.personal.background_image && (
         <div class="absolute inset-0 rounded-t-lg -mt-6 -mx-6 h-32 bg-cover bg-center" style={`background-image: url(${config.personal.background_image})`}>
@@ -39,4 +39,53 @@ const config = await getConfig();
       <SocialIcons social={config.social} />
     </div>
   </Card>
+
+  <script>
+    // Position the profile card as fixed on large screens and keep it aligned with its column
+    document.addEventListener('DOMContentLoaded', () => {
+      const aside = document.getElementById('profile-aside');
+      const card = aside ? aside.querySelector('.profile-card') : null;
+      if (!aside || !card) return;
+
+      const TOP_OFFSET = 96; // px, matches top-24
+
+      function updateFixed() {
+        const isLarge = window.matchMedia('(min-width: 1024px)').matches;
+        if (isLarge) {
+          // Get the left offset of the aside relative to the document
+          const rect = aside.getBoundingClientRect();
+          const left = rect.left + window.scrollX;
+          const width = rect.width;
+          const height = card.offsetHeight;
+
+          // Apply fixed positioning to the card
+          card.style.position = 'fixed';
+          card.style.top = `${TOP_OFFSET}px`;
+          card.style.left = `${left}px`;
+          card.style.width = `${width}px`;
+          card.style.zIndex = 40; // ensure above content
+
+          // Reserve space in the layout so the column doesn't collapse
+          aside.style.minHeight = `${height + 16}px`;
+        } else {
+          // Reset styles for small screens
+          card.style.position = '';
+          card.style.top = '';
+          card.style.left = '';
+          card.style.width = '';
+          card.style.zIndex = '';
+
+          aside.style.minHeight = '';
+        }
+      }
+
+      // Initial update and on resize/scroll
+      updateFixed();
+      window.addEventListener('resize', updateFixed);
+      window.addEventListener('orientationchange', updateFixed);
+
+      // Also update on load to account for images loading which may change dimensions
+      window.addEventListener('load', updateFixed);
+    });
+  </script>
 </aside>
