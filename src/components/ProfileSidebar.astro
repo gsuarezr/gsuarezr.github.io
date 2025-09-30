@@ -6,8 +6,8 @@ import Card from './common/Card.astro';
 const config = await getConfig();
 ---
 
-<aside class="w-full">
-  <Card className="sticky top-24">
+<aside id="profile-aside" class="w-full">
+  <Card className="profile-card">
     <div class="relative">
       {config.personal.background_image && (
         <div class="absolute inset-0 rounded-t-lg -mt-6 -mx-6 h-32 bg-cover bg-center" style={`background-image: url(${config.personal.background_image})`}>
