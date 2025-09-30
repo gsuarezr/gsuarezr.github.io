@@ -27,7 +27,7 @@ const formatAuthors = (inputString: string | undefined) => {
 
     // Build the string with HTML tags
     return authors.map((author, index) => 
-      index === gerardoIndex ? `<strong>${author}</strong>` : author
+      index === gerardoIndex ? `<strong class="text-[#BF6DBA]">${author}</strong>` : author
     ).join(' and ');
   }
 
@@ -42,15 +42,15 @@ const formatAuthors = (inputString: string | undefined) => {
 
   // Handle each case with string templates instead of JSX
   if (gerardoIndex === 0) {
-    return `<strong>${firstAuthor}</strong> ... ${lastAuthor}`;
+    return `<strong class="text-[#BF6DBA]">${firstAuthor}</strong> ... ${lastAuthor}`;
   }
 
   if (gerardoIndex === totalAuthors - 1) {
-    return `${firstAuthor} ... <strong>${lastAuthor}</strong>`;
+    return `${firstAuthor} ... <strong class="text-[#BF6DBA]">${lastAuthor}</strong>`;
   }
 
   // If Suárez is in the middle
-  return `${firstAuthor} ... <strong>${authors[gerardoIndex]}</strong> ... ${lastAuthor}`;
+  return `${firstAuthor} ... <strong class="text-[#BF6DBA]">${authors[gerardoIndex]}</strong> ... ${lastAuthor}`;
 };
 ---
 
