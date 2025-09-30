@@ -15,9 +15,9 @@ export default {
           css: {
             color: theme('colors.gray.500'), // Ensure base text is dark in light mode
             a: {
-              color: theme('colors.blue.700'),
+              color: '#BF6DBA',
               '&:hover': {
-                color: theme('colors.blue.900'),
+                color: '#9e55a1',
               },
             },
           },
@@ -27,9 +27,9 @@ export default {
             // THE KEY CHANGE IS HERE:
             color: theme('colors.white.100'), // Set default text color to a light gray, which appears white on a dark background
             a: {
-              color: theme('colors.blue.300'),
+              color: '#BF6DBA',
               '&:hover': {
-                color: theme('colors.blue.100'),
+                color: '#9e55a1',
               },
             },
             // It's also good practice to make sure headings are readable
