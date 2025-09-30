@@ -6,7 +6,7 @@ import Card from './common/Card.astro';
 const config = await getConfig();
 ---
 
-<aside class="w-80 flex-shrink-0">
+<aside class="w-full md:w-80 md:flex-shrink-0">
   <Card className="sticky top-24">
     <div class="relative">
       {config.personal.background_image && (

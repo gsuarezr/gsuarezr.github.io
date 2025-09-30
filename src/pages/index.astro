@@ -7,20 +7,16 @@ const config = await getConfig();
 ---
 <Layout title={config.site.title}>
   <div class="prose lg:prose-xl">
-    <!-- Container for text and image -->
-    <div class="flex items-start mb-6">
-      <!-- Main content area (text) -->
-      <div class="flex-1">        
+    <div class="flex flex-col md:flex-row items-start gap-6 mb-6">
+      <div class="flex-1">
         <section class="mb-6">
-          <p class="text-lg  text-base leading-relaxed text-gray-700 dark:text-gray-300 text-justify">
-
-          <AboutContent />
-          </p>
+          <div class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 text-justify">
+            <AboutContent />
+          </div>
         </section>
       </div>
 
-      <!-- Image area -->
-      <div class="w-1/4 ml-6">
+      <div class="w-full md:w-1/3 md:ml-6">
         <figure class="m-0">
           <img
             src="/gundam.png"
@@ -34,10 +30,6 @@ const config = await getConfig();
       </div>
     </div>
 
-
-</Layout>
-
-
-  <SelectedPublications /> 
-
+    <SelectedPublications />
+  </div>
 </Layout>

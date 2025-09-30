@@ -8,9 +8,9 @@ const publications = await getSelectedPublications("public/publications/");
   <h2 class="text-2xl font-semibold mb-6">Selected Publications</h2>
   <div class="space-y-6">
     {publications.map(pub => (
-      <div class="flex gap-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+      <div class="flex flex-col sm:flex-row gap-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
         {pub.preview && (
-          <div class="flex-shrink-0 w-32">
+          <div class="w-full sm:w-32 flex-shrink-0">
             <img
               src={pub.preview}
               alt={`Preview for ${pub.title}`}
