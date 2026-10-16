@@ -1,18 +1,7 @@
 ---
 title: Example Blog Post
-description: This is an example blog post showing Markdown capabilities
+description: Example
 date: 2024-03-14
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.16.4
-  kernelspec:
-    display_name: qutip-dev
-    language: python
-    name: python3
 ---
 
 ### Roots of Parametric Polynomials
@@ -148,10 +137,4 @@ TODO:
 - Make another file with some fractal
 - Refactor the polynomial code so you get some jax practice
 
-```python
 
-```
-
-```python
-
-```

@@ -20,8 +20,12 @@ navigation:
       label: CV
       position: main
     blog:
-      enabled: false
+      enabled: true
       label: Blog
+      position: main
+    teaching:
+      enabled: true
+      label: Teaching
       position: main
     gallery:
       enabled: false
@@ -64,8 +68,8 @@ navigation:
 # Personal Information
 personal:
   name: ⟨Gerardo|Suarez⟩
-  title: PhD/Msc Student 
-  bio: Venezuelan |Finance |Quantum |AI. I like anime, pizza and electronics. Finishing up a PhD in Physics and a Msc in Financial engineering. Currently job hunting
+  title: Venezuelan|Quantum|Finance. 
+  bio:    Posdoctoral  Researcher in Quantum Thermodynamics, Financial Engineer, beer and pizza lover.
   avatar: /profile.jpg
   background_image: /background.png
 

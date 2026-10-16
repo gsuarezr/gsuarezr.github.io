@@ -1,110 +1,88 @@
 {
-  "$ref": "#/definitions/blog",
-  "definitions": {
-    "blog": {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "jupyter": {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string"
-        },
-        "date": {
-          "anyOf": [
-            {
-              "type": "string",
-              "format": "date-time"
-            },
-            {
-              "type": "string",
-              "format": "date"
-            },
-            {
-              "type": "integer",
-              "format": "unix-time"
-            }
-          ]
-        },
-        "description": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "jupyter": {
+        "jupytext": {
           "type": "object",
           "properties": {
-            "jupytext": {
+            "text_representation": {
               "type": "object",
               "properties": {
-                "text_representation": {
-                  "type": "object",
-                  "properties": {
-                    "extension": {
-                      "type": "string"
-                    },
-                    "format_name": {
-                      "type": "string"
-                    },
-                    "format_version": {
-                      "type": "string"
-                    },
-                    "jupytext_version": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "extension",
-                    "format_name",
-                    "format_version",
-                    "jupytext_version"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "text_representation"
-              ],
-              "additionalProperties": false
-            },
-            "kernelspec": {
-              "type": "object",
-              "properties": {
-                "display_name": {
+                "extension": {
                   "type": "string"
                 },
-                "language": {
+                "format_name": {
                   "type": "string"
                 },
-                "name": {
+                "format_version": {
+                  "type": "string"
+                },
+                "jupytext_version": {
                   "type": "string"
                 }
               },
               "required": [
-                "display_name",
-                "language",
-                "name"
-              ],
-              "additionalProperties": false
+                "extension",
+                "format_name",
+                "format_version",
+                "jupytext_version"
+              ]
             }
           },
           "required": [
-            "jupytext",
-            "kernelspec"
-          ],
-          "additionalProperties": false
+            "text_representation"
+          ]
         },
-        "$schema": {
-          "type": "string"
+        "kernelspec": {
+          "type": "object",
+          "properties": {
+            "display_name": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "display_name",
+            "language",
+            "name"
+          ]
         }
       },
       "required": [
-        "title",
-        "date"
-      ],
-      "additionalProperties": false
+        "jupytext",
+        "kernelspec"
+      ]
+    },
+    "$schema": {
+      "type": "string"
     }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "title",
+    "date"
+  ]
 }
